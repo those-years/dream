@@ -1,0 +1,64 @@
+#include<iostream>
+#include <stdlib.h>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+#define M 100
+int n=0;																							 //定义一个全局变量
+typedef struct people  
+{  
+	char number[10];
+	char name[10];		//姓名
+	float wage;		//岗位工资
+	float pay_wages;		//薪级工资
+	float post_allowance;	//职务津贴
+	float merit_pay;		//绩效工资
+	float should_pay;		//应发工资
+	float personal_income_tax;//个人所得税
+	float real_pay;		//实发工资
+}ZGGZ;//工资数据结构体
+
+int read(ZGGZ t[])																					//文件读取模块
+{
+	   int i;
+       FILE *fp;//定义文件指针
+       if ((fp = fopen("gz.dat", "rb")) == NULL)
+       {
+              printf("工资数据文件打开失败，请检查文件是否存在或损坏后重试!");
+              return 0;
+       }
+	   fscanf(fp,"%d",&n);
+	   for(i=0;i<n;i++)
+		   fscanf(fp,"%10s%10s%f%f%f%f%f%f%f",t[i].id,t[i].name,&t[i].wage,&t[i].pay_wages,&t[i].post_allowance,&t[i].merit_pay,&t[i].should_pay,&t[i].personal_income_tax,&t[i].real_pay);
+       fclose(fp);
+       return 0;
+}
+
+
+cout<<"请输入员工工号"<<endl;
+for (i = 0; i < n; i++)
+{
+	if (strcmp(S[i].name,nm)==0)
+	{
+		break;
+	}
+}
+
+if(i)
+{
+	cout<<"工号："<<s[i].number<<endl;
+	cout<<"岗位工资："<<s[i].name<<endl;
+	cout<<"薪级工资："<<s[i].wage <<endl;
+	cout<<"职务津贴"<<s[i].pay_wages<<endl;
+	cout<<"绩效工作："<<s[i].post_allowance<<endl;
+	cout<<"应发工资："<<s[i].merit_pay<<endl;
+	cout<<"个人所得税："<<s[i].personal_income_tax<<endl;
+	cout<<"实发工资："<<s[i].real_pay<<endl;
+}
+else
+{
+	printf("没有找到该编号的员工！\n");
+}
+printf("\n");
+system("pause");
+}
