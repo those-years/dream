@@ -1,6 +1,7 @@
 #include<iostream>
 #include<stdlib.h>
 #include<stdio.h>
+#include<string.h>
 using namespace std;
 #define M 100
 int n=0;																							 //定义一个全局变量
@@ -171,7 +172,7 @@ int find(ZGGZ S[])						//工资查询模块
 void add_money(ZGGZ S[])									//自检模块 计算应发工资       
 {
 	for(int i=0;i<n;i++)
-		S[i].shhould_pay=S[i].wage+S[i].pay_wages+S[i].post_allowance+S[i].merit_pay;
+		S[i].should_pay=S[i].wage+S[i].pay_wages+S[i].post_allowance+S[i].merit_pay;
 }
 
 void grsds(ZGGZ S[])										//自检模块 计算个人所得税       
@@ -183,8 +184,8 @@ void grsds(ZGGZ S[])										//自检模块 计算个人所得税
 	else if(should_pay>=80000)
 	{
 		personal_income_tax=(should_pay-80000)*0.4+21850;
-	})
 	}
+	
 	else if(should_pay>=60000)
 	{
 		personal_income_tax=(should_pay-60000)*0.35+14850;
@@ -219,10 +220,82 @@ void grsds(ZGGZ S[])										//自检模块 计算个人所得税
 void add_wages(ZGGZ S[])																									//自检模块 计算实发工资	       
 {
 	for(int i=0;i<n;i++)
-		S[i].real_pay=S[i].money-S[i].tax;
+		S[i].real_pay=S[i].should_pay-S[i].tax;
 }
 
+int list(ZGGZ S[])																											//浏览模块
+{
+	
+	int i=0;																												//当前浏览的位置
+	char flag='y';																											//判断是否继续浏览
+	int m,j;																												//选择浏览方式
+	int k=10;																												//单次浏览最大数量,默认为10
 
+		system("cls");
+		printf("\n\t\t***********浏览方式************\n");  
+		printf("\t\t┌------------------------------┐\n");  
+		printf("\t\t│          1.分批次浏览        │\n");  
+		printf("\t\t│          2.全部浏览          │\n");  
+		printf("\t\t│          3.返回              │\n");    
+		printf("\t\t└------------------------------┘\n");  
+		printf("\n\t\t请选择查询方式:");  
+		scanf("\t\t%d",&m);																									//选择浏览方式  
+		do																													//检查输入是否符合规范  
+		{  
+			j=0;  
+			if(m!=1&&m!=2&&m!=3)  
+			{     
+				j=1;  
+				printf("\t\t您输入的浏览方式不存在,请重新输入:");  
+				scanf("\t\t%d",&m);																							//不符合规范则重新选择浏览方式  
+			}  
+		}while(j); 
+
+	if(m==1)																												//分批次浏览
+	{
+		printf("\n");
+		printf("请输入单次浏览最大数量(默认为10):");
+		scanf("%d",&k);
+		printf("\n浏览结果如下:");
+		while(i<n && flag!='n' && flag!='N')					
+		{
+			printf("\n");
+			printf("工号:%s  %s\n",S[i].number,S[i].name);  
+			printf("岗位工资:%f\t薪级工资:%f\t职务津贴:%f\t绩效工资:%f\n",S[i].wage,S[i].pay_wages,S[i].post_allowance,S[i].merit_pay);  
+			printf("应发工资:%f\t个人所得税:%f\t实发工资:%f",S[i].should_pay,S[i].personal_income_tax,S[i].real_pay);
+			printf("\n");
+			i++;		 
+			if(i%k==0)
+			{	
+				printf("\n");
+				printf("\t\t是否继续浏览?(Y/N)");  
+				scanf("\t\t%c",&flag); 
+			}
+		}
+		printf("\n工资数据已全部浏览完毕,即将自动返回主菜单\n\n");
+	}
+	
+	if(m==2)																												//全部浏览
+	{
+
+		while(i<n && flag!='n' && flag!='N')					
+		{
+			printf("\n");
+			printf("工号:%s  %s\n",S[i].number,S[i].name);  
+			printf("岗位工资:%f\t薪级工资:%f\t职务津贴:%f\t绩效工资:%f\n",S[i].wage,S[i].pay_wages,S[i].post_allowance,S[i].merit_pay);  
+			printf("应发工资:%f\t个人所得税:%f\t实发工资:%f",S[i].should_pay,S[i].personal_income_tax,S[i].real_pay);
+			printf("\n");
+			i++;		 
+		}
+		printf("\n工资数据已全部浏览完毕,即将自动返回主菜单\n\n");
+	}
+	
+	if(m==3)																												//返回
+		{
+			return 0;
+		}
+	return 0;
+}
 
 int main()
 {
