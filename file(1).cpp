@@ -48,7 +48,7 @@ void read(ZGGZ t[])
 	if(fp==NULL)
 	{
 		printf("无法打开文件！");
-		getch();
+		getchar();
 		exit(-1);
 	}
 	else
@@ -58,7 +58,7 @@ void read(ZGGZ t[])
 	{ //从文件中读取数据到结构体 
     int i; 
    fscanf(fp,"%10s%10s%f%f%f%f%f%f%f",t[i].number,t[i].name,&t[i].wage,&t[i].pay_wages,&t[i].post_allowance,&t[i].merit_pay,&t[i].should_pay,&t[i].personal_income_tax,&t[i].real_pay);	
-    n++; 
+    n=n+1; 
 
 	}  
     fclose(fp);
@@ -77,6 +77,32 @@ void read(ZGGZ t[])
 	   }
 	
 }
+
+
+//c++ 
+
+/*void read()
+{
+	int i;
+	int n=0;			//储存最大 
+	gzzg GZZG[ii];
+	ifstream infile("stu.dat",ios::in);
+	if(!infile)
+	{
+		cout<<"open error!"<<endl;
+		exit(1);
+	}
+	while(!infile.eof())
+	{
+		infile>>GZZG[i].number>>GZZG[i].name>>GZZG[i].wage>>GZZG[i].pay_wages
+			>>GZZG[i].post_allowance>>GZZG[i].merit_pay;
+		i=i+1;
+		max=n+1;
+	}
+	infile.close();
+*/
+
+
 
 /* 
 int read(ZGGZ t[])																					//文件读取模块
