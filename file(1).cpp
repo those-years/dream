@@ -38,6 +38,47 @@ int menu_select()																					//功能选择模块
     return(c-'0');  
 }  
 
+
+void read(ZGGZ t[])
+{
+    FILE *fp;
+
+	fp=fopen("gx.dat","rb");//以二进制读文件
+	
+	if(fp==NULL)
+	{
+		printf("无法打开文件！");
+		getch();
+		exit(-1);
+	}
+	else
+		printf("打开成功！！\n");
+
+	while(!feof(fp)) 
+	{ //从文件中读取数据到结构体 
+    int i; 
+   fscanf(fp,"%10s%10s%f%f%f%f%f%f%f",t[i].number,t[i].name,&t[i].wage,&t[i].pay_wages,&t[i].post_allowance,&t[i].merit_pay,&t[i].should_pay,&t[i].personal_income_tax,&t[i].real_pay);	
+    n++; 
+
+	}  
+    fclose(fp);
+
+	int c;
+
+	scanf("%d",&c);
+	printf("输入1进入菜单，0退出");
+
+	switch(c)
+	   {
+	      case 1:
+		   list(zggz s[]);break;
+	      case 2:
+		   break;
+	   }
+	
+}
+
+/* 
 int read(ZGGZ t[])																					//文件读取模块
 {
 	   int i;
@@ -53,7 +94,7 @@ int read(ZGGZ t[])																					//文件读取模块
        fclose(fp);
        return 0;
 }
-
+*/ 
 int find(ZGGZ S[])						//工资查询模块  
 {  
 	int m,j;  
