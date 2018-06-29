@@ -23,10 +23,12 @@ struct gzzg{
 }GZZG[ii];
 
 
+
+
 void read()
 {
 	int i;
-	ifstream infile("stu.dat",ios::binary);
+	ifstream infile("stu.dat");
 	if(!infile)
 	{
 		cout<<"open error!"<<endl;
@@ -46,7 +48,7 @@ void read()
 
 void write()
 {
-	ofstream outfile("gz.dat");
+	ofstream outfile("gz.dat",ios::binary);
 	if(!outfile)
 	{
 		cout<<"打开文件失败："<<endl;
@@ -54,24 +56,20 @@ void write()
 	}
 	for(int i=0;i<n;i++)
 	{
-		outfile.write((char *)&GZZG[i],sizeof(GZZG[i]));
-		cout<<endl;
+//		outfile.write((char *)&GZZG[i],sizeof(GZZG[i]));
+		outfile<<'\r'<<'\n'<<GZZG[i].name<<"  "<<GZZG[i].wage<<"  "<<GZZG[i].pay_wages<<"   "<<GZZG[i].post_allowance<<" "
+				<<GZZG[i].merit_pay<<"  "<<GZZG[i].should_pay<<"  "<<GZZG[i].personal_income_tax<<"  "<<GZZG[i].real_pay<<"  "; 
 	}	
 	outfile.close();
 } 
 
-void find()
+void find()		//查询职工工资数据 
 {
 	int j;
 	char gonghao[10];
+	cout<<"请输入要进行查询的工号："; 
 	cin>>gonghao;
-/*	cout<<"请选择查询方式："<<endl;
-	cout<<"工号查询，请输入1；" <<endl;
-	cout<<"姓名查询，请输入2：" <<endl;
-	cin>>j;
-	if(j==1)
-	{
-*/
+	cout<<"显示查询结果："<<endl; 
 	for(int i=0;i<n;i++)
 		if(strcmp(GZZG[i].number,gonghao)==0)
 		{
@@ -89,8 +87,9 @@ void find()
 }
 
 
-void list()
+void list()			//浏览所有职工工资数据 
 {
+	cout<<"         "<<"所有职工工资数据如下：" <<endl;
 	for(int i=0;i<n;i++)
 	{
 		cout<<"        |"<<"************************"<<"*      "<<endl;
@@ -198,12 +197,54 @@ void del()			//删除职工工资数据 976872969
 
 void add()			//添加职工工资数据 
 {
-	int i;
-	
+	cout<<"欢迎进入添加界面！！！！！！"<<endl;
+	cout<<"请输入所添加职工的工号:";
+		cin>>GZZG[n].number;
+		cout<<endl;
+	cout<<"请输入所添加职工的姓名:";
+		cin>>GZZG[n].name;
+		cout<<endl;
+	cout<<"请输入所添加职工的岗位工资:";
+		cin>>GZZG[n].wage;
+		cout<<endl;
+	cout<<"请输入所添加职工的薪级工资:";
+		cin>>GZZG[n].pay_wages;
+		cout<<endl;
+	cout<<"请输入所添加职工的职务津贴:";
+		cin>>GZZG[n].post_allowance;
+		cout<<endl;
+	cout<<"请输入所添加职工的绩效工资:";
+		cin>>GZZG[n].merit_pay;
+		cout<<endl;
+
+/*
+	if(i==1)
+	{
+		strcpy(GZZG[n].number, "new_number[10]");
+		strcpy(GZZG[n].name,"new_namer[10]");
+		GZZG[n].wage=new_wage;
+		GZZG[n].pay_wages=new_pay_wages;
+		GZZG[n].post_allowance=new_post_allowance;
+		GZZG[n].merit_pay=new_merit_pay;
+		cout<<GZZG[n].pay_wages;
+	}
+*/	
+		
 	
 }
 
 
+
+void func_real_pay()	//计算实发工资 
+{
+	int i;
+//	grsds();
+	for(i=0;i<n;i++)
+	{
+		GZZG[i].real_pay=GZZG[i].should_pay-GZZG[i].personal_income_tax;
+		cout<<GZZG[i].real_pay<<endl;	
+	} 
+}
 
 void grsds()		//计算个人所得税 
 {
@@ -261,15 +302,57 @@ void grsds()		//计算个人所得税
 
 void menu()
 {
-	cout<<"***************************|"<<endl;
-	cout<<"欢迎进入菜单！！"<<endl;
-	cout<<"查询职工工资详细信息请输入1"<<endl;
-	cout<<"修改职工工资详细信息请输入2"<<endl;
-	cout<<"添加新的职工工资信息请输入3"<<endl;
-	cout<<"删除职工工资请输入4"<<endl;
-	cout<<"保存当前操作请输入5"<<endl;
-	cout<<"浏览所有职工工资信息请输入6"<<endl;
-	cout<<"退出菜单请输入7"<<endl;	
+	int i; 
+	cout<<"			"<<"|***************************|"<<endl;
+	cout<<"			"<<"|欢迎进入菜单！！"<<endl;
+	cout<<"			"<<"|查询职工工资详细信息请输入1"<<endl;
+	cout<<"			"<<"|修改职工工资详细信息请输入2"<<endl;
+	cout<<"			"<<"|添加新的职工工资信息请输入3"<<endl;
+	cout<<"			"<<"|删除职工工资请输入4"<<endl;
+	cout<<"			"<<"|保存当前操作请输入5"<<endl;
+	cout<<"			"<<"|浏览所有职工工资信息请输入6"<<endl;
+	cout<<"			"<<"|退出菜单请输入7"<<endl;	
+	cout<<"			"<<"|***************************|"<<endl;
+	cin>>i;
+	if(i==1)
+	{
+		cout<<"欢迎使用查询功能，请接下来按提示操作"<<endl;
+		find();
+	}
+	else if(i==2)
+	{
+		cout<<"欢迎使用修改功能，请接下来按提示操作"<<endl;
+		modify();
+	}
+	else if(i==3)
+	{
+		cout<<"欢迎使用添加功能，请接下来按提示操作"<<endl;
+		add();
+	}
+	else if(i==4)
+	{
+		cout<<"欢迎使用删除功能，请接下来按提示操作"<<endl;
+		del();
+	}
+	else if(i==5)
+	{
+		cout<<"欢迎使用保存功能，请接下来按提示操作"<<endl;
+		write();
+	}
+	else if(i==6)
+	{
+		cout<<"欢迎使用浏览功能，请接下来按提示操作"<<endl;
+		
+	}
+	else if(i==7)
+	{
+		cout<<"欢迎使用查询功能，请接下来按提示操作"<<endl;
+	}
+	else 
+	{
+		cout<<"输入错误请重新输入："<<endl;
+		cin>>i;
+	}
 }			
 
 
@@ -284,7 +367,7 @@ int main()
 	cout<<"		"<<"||***************************************||" <<endl;
 	cout<<"		"<<"||开始进入菜单，请在进入菜单后按提示操作 ||"<<endl; 
 	cout<<"		"<<"||***************************************||" <<endl;
-	
+//	menu(); 
 /*	for(i=0;i<n;i++)
 		cout<<GZZG[i].number<<" "<<GZZG[i].name<<" "<<GZZG[i].wage<<" "
 			<<GZZG[i].pay_wages<<" "<<GZZG[i].post_allowance<<" "<<GZZG[i].merit_pay<<endl;
@@ -294,10 +377,18 @@ int main()
 
 //	write();
 //	find();
-	list();
+//	list();
 //	grsds();
 //	cout<<GZZG[1].personal_income_tax<<endl;
 	//modify();
-	del();
+//	del();
+//	func_real_pay();
+//	write();
+	cout<<GZZG[n].name<<endl;
+	cout<<"hello"<<endl; 
+	add();
+
+	system("cls");	//清屏函数
+	menu(); 
 	return 0;
 } 
