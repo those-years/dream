@@ -14,7 +14,7 @@ struct gzzg{
 	float should_pay;		//应发工资
 	float personal_income_tax;//个人所得税
 	float real_pay;		//实发工资
-}GZZG[ii];
+}GZZG[ii];				//结构体数组全局变量 
 
 
 
@@ -77,12 +77,14 @@ void find()		//查询职工工资数据
 	int j;
 	char gonghao[10];
 	printf("请输入要进行查询的工号："); 
+	scanf("%s",gonghao);
 //	cin>>gonghao;
-	gets(gonghao);
+//	gets(gonghao);
 	printf("显示查询结果：\n") ;
 	for(int i=0;i<n;i++)
+	{
 		if(strcmp(GZZG[i].number,gonghao)==0)
-		{
+		{	
 			printf("工号：");
 			printf("%s\n",GZZG[i].number);
 			
@@ -112,6 +114,7 @@ void find()		//查询职工工资数据
 			
 			break;
 		}
+	}
 }
 
 /*
@@ -168,7 +171,7 @@ void modify()		//修改职工工资数据
 	char gonghao[10];
 	int i;
 	float modify_wage,modify_pay_wages,modify_merit_pay;
-	gets(gonghao); 
+	scanf("%s",gonghao); 
 	for(i=0;i<n;i++)
 		if(strcmp(GZZG[i].number,gonghao)==0)
 		{
@@ -188,6 +191,7 @@ void modify()		//修改职工工资数据
 	printf("请输入修改后的绩效工资:");
 	scanf("%f\n",&GZZG[i].merit_pay);
 	
+//	return 0;
 }
 
 
@@ -195,53 +199,51 @@ void del()			//删除职工工资数据 976872969
 {
 	char gonghao[10];
 	int i,j,k,h;
-	printf("请输入需要删除的职工工资数据的工号：");
-	gets(gonghao);
+	printf("			请输入需要删除的职工工资数据的工号：");
+	scanf("%s",gonghao);
 	for(int i=0;i<n;i++)				//将需要删除的职工工资数据导出来 
 		if(strcmp(GZZG[i].number,gonghao)==0)
 		{
-			printf("	***************************\n") ;
-			printf("	|工号：");
+			printf("			***************************\n") ;
+			printf("			|工号：");
 			printf("%s\n",GZZG[i].number);
 			
-			printf("	|姓名：");
+			printf("			|姓名：");
 			printf("%s\n",GZZG[i].name);
 			
-			printf("	|岗位工资：");
+			printf("			|岗位工资：");
 			printf("%.2f\n",GZZG[i].wage);
 				
-			printf("	|薪级工资：");
+			printf("			|薪级工资：");
 			printf("%.2f\n",GZZG[i].pay_wages);
 			
-			printf("	|职务津贴：");
+			printf("			|职务津贴：");
 			printf("%.2f\n",GZZG[i].post_allowance);
 			
-			printf("	|绩效工作：");
+			printf("			|绩效工作：");
 			printf("%.2f\n",GZZG[i].merit_pay);
 			
-			printf("	|应发工资：");
+			printf("			|应发工资：");
 			printf("%.2f\n",GZZG[i].should_pay);
 			
-			printf("	|个人所得税：");
+			printf("			|个人所得税：");
 			printf("%.2f\n",GZZG[i].personal_income_tax);		
 			
-			printf("	|实发工资：");
+			printf("			|实发工资：");
 			printf("%.2f\n",GZZG[i].real_pay);
-			printf("	***************************");
-			cout<<"i="<<i<<endl;
-			h=i;
-			cout<<"h="<<h<<endl;
+			printf("			***************************\n\n");
 			break;
 		} 
-	printf("|*********************************|");
-	printf("|请确认该职工工资数据是否正确!!"); 
-	printf("|请输入1执行删除操作：");
-	printf("|如需放弃请输入2：");
-	printf("|*********************************|");
-	cin>>j;
+	printf("			|*********************************|\n");
+	printf("			|请确认该职工工资数据是否正确!!\n"); 
+	printf("			|请输入1执行删除操作：\n");
+	printf("			|如需放弃请输入2：\n");
+	printf("			|*********************************|\n");
+	printf("			请输入："); 
+	scanf("%d",&j);
 	if(j==2)
 	{
-		printf("退出该操作;请输入xxxx（未实现）" );
+		printf("			退出该操作;请输入xxxx（未实现）" );
 	}
 	else if(j==1)
 	{
@@ -249,7 +251,7 @@ void del()			//删除职工工资数据 976872969
 		{
 			GZZG[k]=GZZG[k+1];
 		}
-		printf("修改完成！！");
+		printf("			修改完成！！");
 	}
 	if(h==n)
 	{
@@ -257,32 +259,33 @@ void del()			//删除职工工资数据 976872969
 	}
 	else
 	{
-		printf("	|工号：");
-		printf("%s\n",GZZG[i].number);
+		cout<<h<<endl;
+		printf("			|工号：");
+		printf("%s\n",GZZG[h].number);
 			
-		printf("	|姓名：");
-		printf("%s\n",GZZG[i].name);
+		printf("			|姓名：");
+		printf("%s\n",GZZG[h].name);
 			
-		printf("	|岗位工资：");
-		printf("%.2f\n",GZZG[i].wage);
+		printf("			|岗位工资：");
+		printf("%.2f\n",GZZG[h].wage);
 				
-		printf("	|薪级工资：");
-		printf("%.2f\n",GZZG[i].pay_wages);
+		printf("			|薪级工资：");
+		printf("%.2f\n",GZZG[h].pay_wages);
 			
-		printf("	|职务津贴：");
-		printf("%.2f\n",GZZG[i].post_allowance);
+		printf("			|职务津贴：");
+		printf("%.2f\n",GZZG[h].post_allowance);
 			
-		printf("	|绩效工作：");
-		printf("%.2f\n",GZZG[i].merit_pay);
+		printf("			|绩效工作：");
+		printf("%.2f\n",GZZG[h].merit_pay);
 			
-		printf("	|应发工资：");
-		printf("%.2f\n",GZZG[i].should_pay);
+		printf("			|应发工资：");
+		printf("%.2f\n",GZZG[h].should_pay);
 			
-		printf("	|个人所得税：");
-		printf("%.2f\n",GZZG[i].personal_income_tax);		
+		printf("			|个人所得税：");
+		printf("%.2f\n",GZZG[h].personal_income_tax);		
 			
-		printf("	|实发工资：");
-		printf("%.2f\n",GZZG[i].real_pay);
+		printf("			|实发工资：");
+		printf("%.2f\n",GZZG[h].real_pay);
 	}
 } 
 
@@ -290,31 +293,29 @@ void del()			//删除职工工资数据 976872969
 
 void add()			//添加职工工资数据 
 {
-	printf("欢迎进入添加界面！！！！！！");
-	printf("请输入所添加职工的工号:");
-		gets(GZZG[n].number);
-		cout<<endl;
-	printf("请输入所添加职工的姓名:");
-	gets(GZZG[n].name);
-	cout<<endl;
-	printf("请输入所添加职工的岗位工资:");
+/*
+这里需要注意一点在：scanf中 “\n” 不是表示接受一个回车符，
+而是表示忽略所有的空白字符（包括回车,空格,tab ）。所以想要
+结束输入,输入任意一个非空白字符即可,但是该字符仍然会留在缓冲区中。
+而且scanf输完，按回车键会自动换行 
+*/
+	printf("\t\t\t请输入所添加职工的工号:");
+	scanf("%s",GZZG[n].number);
+
+	printf("\t\t\t请输入所添加职工的姓名:");
+	scanf("%s\n",GZZG[n].name);
+
+	printf("\t\t\t请输入所添加职工的岗位工资:");
 	scanf("%f",&GZZG[n].wage);
-	cout<<endl;
 		
-	printf("请输入所添加职工的薪级工资:");
+	printf("\t\t\t请输入所添加职工的薪级工资:");
 	scanf("%f",&GZZG[n].pay_wages);
-	cout<<endl;
 	
-	printf("请输入所添加职工的职务津贴:");
+	printf("\t\t\t请输入所添加职工的职务津贴:");
 	scanf("%f",&GZZG[n].post_allowance);
-	cout<<endl;
 	
-	printf("请输入所添加职工的绩效工资:");
-	scanf("%f",&GZZG[n].merit_pay);
-	cout<<endl;
-	
-//	printf("%s",&GZZG[n].name);
-//	printf("%.2f",GZZG[n].pay_wages);	
+	printf("\t\t\t请输入所添加职工的绩效工资:");
+	scanf("%f",&GZZG[n].merit_pay);		
 
 	/*
 	输入数据时要取地址符&
@@ -331,8 +332,7 @@ void func_real_pay()	//计算实发工资
 //	grsds();
 	for(i=0;i<n;i++)
 	{
-		GZZG[i].real_pay=GZZG[i].should_pay-GZZG[i].personal_income_tax;
-		cout<<GZZG[i].real_pay<<endl;	
+		GZZG[i].real_pay=GZZG[i].should_pay-GZZG[i].personal_income_tax;	
 	} 
 }
 
@@ -405,19 +405,27 @@ void menu()
 	cout<<"			"<<"|退出菜单请输入7"<<endl;	
 	cout<<"			"<<"|***************************|"<<endl;
 */
-	printf("\t###  欢迎使用广西民族大学软件与信息安全学院职工工资管理系统  ###\n\n");
-	printf("\t请选择<1 - 7>:\n");
-	printf("\t===============================================================\n");
-	printf("\t|\t1.查询职工工资记录                                    |\n");
-	printf("\t|\t2.修改职工工资记录                                    |\n");
-	printf("\t|\t3.添加职工工资记录                                    |\n");
-	printf("\t|\t4.删除职工工资记录                                    |\n");
-	printf("\t|\t5.保存数据到文件                                      |\n");
-	printf("\t|\t6.浏览职工记录                                        |\n");
-	printf("\t|\t7.退出系统                                            |\n");
-	printf("\t===============================================================\n\n");
-	printf("\t你的选择是：\n");
-	cin>>i;
+	printf("\t\t\t###  欢迎使用广西民族大学软件与信息安全学院职工工资管理系统  ###\n\n");
+	printf("\t\t\t请选择<1 - 7>:\n");
+	printf("\t\t\t===============================================================\n");
+	printf("\t\t\t|\t1.查询职工工资记录                                    |\n");
+	printf("\t\t\t|\t2.修改职工工资记录                                    |\n");
+	printf("\t\t\t|\t3.添加职工工资记录                                    |\n");
+	printf("\t\t\t|\t4.删除职工工资记录                                    |\n");
+	printf("\t\t\t|\t5.保存数据到文件                                      |\n");
+	printf("\t\t\t|\t6.浏览职工记录                                        |\n");
+	printf("\t\t\t|\t7.退出系统                                            |\n");
+	printf("\t\t\t===============================================================\n\n");
+	printf("\t\t\t你的选择是：");
+	scanf("%d",&i);
+	cout<<i;
+	/*
+	可改成while语句 
+	*/
+
+
+	
+	
 	if(i==1)
 	{
 		printf("欢迎使用查询功能，请接下来按提示操作");
@@ -436,6 +444,7 @@ void menu()
 	else if(i==4)
 	{
 		printf("欢迎使用删除功能，请接下来按提示操作");
+		del(); 
 	}
 	else if(i==5)
 	{
@@ -445,6 +454,7 @@ void menu()
 	else if(i==6)
 	{
 		printf("欢迎使用浏览功能，请接下来按提示操作\n");
+		list();
 		
 	}
 	else if(i==7)
@@ -454,7 +464,7 @@ void menu()
 	else 
 	{
 		printf("输入错误请重新输入：\n");
-		cin>>i;
+		scanf("%d",&i);
 	}
 }			
 
@@ -464,7 +474,139 @@ int main()
 {
 	int i; 
 	read();
-	menu();
+	grsds();
+	func_real_pay();
+	/*
+	printf("\t\t\t###  欢迎使用广西民族大学软件与信息安全学院职工工资管理系统  ###\n\n");
+	printf("\t\t\t请选择<1 - 7>:\n");
+	printf("\t\t\t===============================================================\n");
+	printf("\t\t\t|\t1.查询职工工资记录                                    |\n");
+	printf("\t\t\t|\t2.修改职工工资记录                                    |\n");
+	printf("\t\t\t|\t3.添加职工工资记录                                    |\n");
+	printf("\t\t\t|\t4.删除职工工资记录                                    |\n");
+	printf("\t\t\t|\t5.保存数据到文件                                      |\n");
+	printf("\t\t\t|\t6.浏览职工记录                                        |\n");
+	printf("\t\t\t|\t7.退出系统                                            |\n");
+	printf("\t\t\t===============================================================\n\n");
+	printf("\t\t\t你的选择是：");
+	scanf("%d",&i);
+
+	可改成while语句 
+	*/
+	
+	
+	/*
+	使用一个do while()语句 
+	*/
+	do
+	{
+	//	system("cls");
+		printf("\t\t\t###  欢迎使用广西民族大学软件与信息安全学院职工工资管理系统  ###\n\n");
+		printf("\t\t\t请选择<1 - 7>:\n");
+		printf("\t\t\t===============================================================\n");
+		printf("\t\t\t|\t1.查询职工工资记录                                    |\n");
+		printf("\t\t\t|\t2.修改职工工资记录                                    |\n");
+		printf("\t\t\t|\t3.添加职工工资记录                                    |\n");
+		printf("\t\t\t|\t4.删除职工工资记录                                    |\n");
+		printf("\t\t\t|\t5.保存数据到文件                                      |\n");
+		printf("\t\t\t|\t6.浏览职工记录                                        |\n");
+		printf("\t\t\t|\t7.退出系统                                            |\n");
+		printf("\t\t\t===============================================================\n\n");
+		printf("\t\t\t你的选择是：");
+		scanf("%d",&i);	
+		
+		switch(i)
+		{
+			case 1:
+				printf("\t\t\t欢迎使用查询功能，请接下来按提示操作\n");
+				grsds();
+				func_real_pay();
+				find();
+				break;
+		
+			case 2:
+				printf("\t\t\t欢迎使用修改功能，请接下来按提示操作\n");
+				modify();
+				break;
+			
+			case 3:
+				printf("\t\t\t欢迎使用添加功能，请接下来按提示操作\n");
+				add();
+				break;
+			
+			case 4:
+				printf("\t\t\t欢迎使用删除功能，请接下来按提示操作\n");
+				del(); 
+				break;
+			
+			case 5:
+				printf("\t\t\t欢迎使用保存功能，请接下来按提示操作");
+				write();
+				break;
+			
+			case 6:
+				printf("\t\t\t欢迎使用浏览功能，请接下来按提示操作\n");
+				list();
+				break;
+			case 7:
+				
+				break;
+		}
+	}
+	while(i!=7);
+	/*
+	if(i==1)
+	{
+
+		printf("\t\t\t欢迎使用查询功能，请接下来按提示操作\n");
+		grsds();
+		func_real_pay();
+		find();
+	}
+	else if(i==2)
+	{
+		printf("\t\t\t欢迎使用修改功能，请接下来按提示操作\n");
+		modify();
+	}
+	else if(i==3)
+	{
+		printf("\t\t\t欢迎使用添加功能，请接下来按提示操作\n");
+		add();
+	}
+	else if(i==4)
+	{
+		printf("\t\t\t欢迎使用删除功能，请接下来按提示操作\n");
+		del(); 
+	}
+	else if(i==5)
+	{
+		printf("\t\t\t欢迎使用保存功能，请接下来按提示操作");
+		write();
+	}
+	else if(i==6)
+	{
+		printf("\t\t\t欢迎使用浏览功能，请接下来按提示操作\n");
+		list();
+		
+	}
+	else if(i==7)
+	{
+		printf("\t\t\t欢迎使用查询功能，请接下来按提示操作\n");
+	}
+	else 
+	{
+		printf("\t\t\t输入错误请重新输入：\n");
+		scanf("%d",&i);
+	}
+*/	
+	
+	
+	
+	
+	
+	
+	
+//	menu();
 //	cout<<GZZG[0].name<<GZZG[0].number<<endl; 
 //	write();
 //	find();
