@@ -29,8 +29,8 @@ Fuction list:
 #include<fstream>
 #include<string.h>
 using namespace std;
-const int ii=100;
-int n=0; 
+const int ii=100;	//文件中职工工资数据的最大值 
+int n=0; 			//记录gx.text文件中职工工资数据的个数 
 struct gzzg{
     char number[10];
     char name[10];				//姓名
@@ -44,7 +44,18 @@ struct gzzg{
 }GZZG[ii];						//结构体数组全局变量 
 
 
+/***************************************************
 
+Function:	read(); 
+Description: 主函数执行时要调用和必须调用的第一个函数，读取
+             文件中的职工工资数据到一个结构体数组GZZG[ii]； 
+Calls: 无 
+
+Called by: main()； 
+
+Return:  无返回值; 
+
+*****************************************************/
 void read()
 {
     int i;
@@ -70,6 +81,19 @@ void read()
     }
 }
 
+
+/*****************************************************
+
+Function: write();
+Description: 在进入系统进行操作后退可执行此函数保存此前
+             的操作，并且将结构体数组保存到gz.dat文件中 ; 
+Calls:  无调用函数; 
+
+Called by: menu(); 
+
+Return:  无返回值; 
+
+*****************************************************/
 void write()
 {
     int i;
@@ -89,6 +113,18 @@ void write()
 
 } 
 
+
+/*****************************************************
+Function: find();
+
+Description: 根据工号查询相应的职工工资记录 
+        
+Calls:  无调用函数; 
+
+Called by: menu(); 
+
+Return:  无返回值; 
+*****************************************************/
 void find()		//查询职工工资数据 
 {
     int j;
@@ -133,6 +169,17 @@ void find()		//查询职工工资数据
 }
 
 
+/*****************************************************
+Function: list();
+
+Description: 浏览所有员工的工资数据;
+
+Calls:  无调用函数; 
+
+Called by: menu(); 
+
+Return:  无返回值; 
+*****************************************************/
 void list()			//浏览所有职工工资数据 
 {
     printf("      			所有职工工资数据如下：\n");
@@ -169,6 +216,16 @@ void list()			//浏览所有职工工资数据
 	}
 }
 
+
+/*****************************************************
+Function: modify();
+Description: 修改职工的工资数据 
+Calls:  无调用函数; 
+
+Called by: menu(); 
+
+Return:  无返回值; 
+*****************************************************/
 void modify()		//修改职工工资数据 
 {	
 	
@@ -198,6 +255,17 @@ void modify()		//修改职工工资数据
 }
 
 
+/*****************************************************
+
+Function: del();
+Description: 删除指定工号的职工记录 
+Calls:  无调用函数; 
+
+Called by: menu(); 
+
+Return:  无返回值; 
+
+*****************************************************/
 void del()			//删除职工工资数据 976872969
 {
     char gonghao[10];
@@ -293,8 +361,17 @@ void del()			//删除职工工资数据 976872969
 } 
 
 
+/*****************************************************
+Function: add();
+Description: 将新的职工工资记录添加到结构体数组GZZG[ii]
+            的末尾 ； 
+Calls:  无调用函数; 
 
-void add()			//添加职工工资数据 
+Called by: menu(); 
+
+Return:  无返回值; 
+*****************************************************/
+void add()	
 {
     printf("\t\t\t请输入所添加职工的工号:");
     scanf("%s",GZZG[n].number);
@@ -316,7 +393,17 @@ void add()			//添加职工工资数据
 }
 
 
-void func_real_pay()	//计算实发工资 
+/*****************************************************
+Function: func_real_pay();
+Description: 计算gz.dat文件中所有职工的实发工资;
+ 
+Calls:  无调用函数; 
+
+Called by: menu(); 
+
+Return:  无返回值; 
+*****************************************************/
+void func_real_pay()	
 {
     int i;
     for(i=0;i<n;i++)
@@ -326,7 +413,17 @@ void func_real_pay()	//计算实发工资
 }
 
 
-void grsds()		//计算个人所得税 
+/*****************************************************
+Function: grsds();
+Description: 计算gz.dat文件中所有职工的应发工资和个人
+             所得税;
+Calls:  无调用函数; 
+
+Called by: menu(); 
+
+Return:  无返回值; 
+*****************************************************/
+void grsds()		
 {
     for(int i=0;i<n;i++)
     {
@@ -384,6 +481,16 @@ void grsds()		//计算个人所得税
 }
 
 
+/*****************************************************
+Function: grsds();
+Description: 计算gz.dat文件中所有职工的应发工资和个人
+             所得税;
+Calls:  无调用函数; 
+
+Called by: menu(); 
+
+Return:  无返回值; 
+*****************************************************/
 void menu()
 {
     int i,j;
@@ -419,11 +526,6 @@ void menu()
                     {
                         break;
                     }
-				/*	else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}*/
                 }
                 while(j!=0);
                 break;
@@ -440,11 +542,6 @@ void menu()
                     {
                         break;
 					}
-					/*else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}*/
                 }
                 while(j!=0);
                 break;
@@ -465,11 +562,6 @@ void menu()
                     {
                         break;
                     }
-					/*else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}*/
                 }
                 while(j!=0);
                 break;
@@ -487,11 +579,6 @@ void menu()
                     {
                         break;
                     }
-					/*else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}*/
                 }
                 while(j!=0);
                 break;
@@ -509,11 +596,6 @@ void menu()
                     {
                         break;
                     }
-					/*else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}*/
                 }
                 while(j!=0);
                 break;
@@ -531,11 +613,6 @@ void menu()
                     {
                         break;
                     }
-				/*	else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}*/
                 }
                 while(j!=0);
                 break;
@@ -544,9 +621,7 @@ void menu()
             case 7:
             {
                 break;
-            }
-			//	break;
-				
+            }				
         }
     }
     while(i!=7);
@@ -560,153 +635,6 @@ int main()
     grsds();
     func_real_pay();	
     menu();
-	/*
-	使用一个do while()语句 
-	*/
-	/*
-	do
-	{
-		printf("\t\t\t###  欢迎使用广西民族大学软件与信息安全学院职工工资管理系统  ###\n\n");
-		printf("\t\t\t请选择<1 - 7>:\n");
-		printf("\t\t\t===============================================================\n");
-		printf("\t\t\t|\t1.查询职工工资记录                                    |\n");
-		printf("\t\t\t|\t2.修改职工工资记录                                    |\n");
-		printf("\t\t\t|\t3.添加职工工资记录                                    |\n");
-		printf("\t\t\t|\t4.删除职工工资记录                                    |\n");
-		printf("\t\t\t|\t5.保存数据到文件                                      |\n");
-		printf("\t\t\t|\t6.浏览职工记录                                        |\n");
-		printf("\t\t\t|\t7.退出系统                                            |\n");
-		printf("\t\t\t===============================================================\n\n");
-		printf("\t\t\t你的选择是：");
-		scanf("%d",&i);	
-		
-		switch(i)
-		{
-			case 1:
-				printf("\t\t\t欢迎使用查询功能，请接下来按提示操作\n");
-				grsds();
-				func_real_pay();
-				find();
-				do
-				{
-					printf("输入0返回上一层：");
-					scanf("%d",&j);
-					if(j==0)
-					{
-						break;
-					}
-					else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}
-				}
-				while(j!=0);
-		
-			case 2:
-				printf("\t\t\t欢迎使用修改功能，请接下来按提示操作\n");
-				modify();
-								do
-				{
-					printf("输入0返回上一层：");
-					scanf("%d",&j);
-					if(j==0)
-					{
-						break;
-					}
-					else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}
-				}
-				while(j!=0);
-			
-			case 3:
-				printf("\t\t\t欢迎使用添加功能，请接下来按提示操作\n");
-				add();
-				grsds();
-				func_real_pay();
-				do
-				{
-					printf("输入0返回上一层：");
-					scanf("%d",&j);
-					if(j==0)
-					{
-						break;
-					}
-					else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}
-				}
-				while(j!=0);
-			
-			case 4:
-				printf("\t\t\t欢迎使用删除功能，请接下来按提示操作\n");
-				del(); 
-				do
-				{
-					printf("输入0返回上一层：");
-					scanf("%d",&j);
-					if(j==0)
-					{
-						break;
-					}
-					else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}
-				}
-				while(j!=0);
-			
-			case 5:
-				printf("\t\t\t欢迎使用保存功能，请接下来按提示操作");
-				write();
-				do
-				{
-					printf("输入0返回上一层：");
-					scanf("%d",&j);
-					if(j==0)
-					{
-						break;
-					}
-					else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}
-				}
-				while(j!=0);
-			
-			case 6:
-				printf("\t\t\t欢迎使用浏览功能，请接下来按提示操作\n");
-				list();
-				do
-				{
-					printf("输入0返回上一层：");
-					scanf("%d",&j);
-					if(j==0)
-					{
-						break;
-					}
-					else
-					{
-						printf("输入错误，请重新输入：");
-						scanf("%d",&j);
-					}
-				}
-				while(j!=0);
-			case 7:
-				
-				break;
-		}
-	}
-	while(i!=7);
-	
-	*/
     printf("\t\t\t欢迎使用本系统，再见！！！！！！"); 
 	
     return 0;
