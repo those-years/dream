@@ -28,6 +28,8 @@ Fuction list:
 #include<iostream>
 #include<fstream>
 #include<string.h>
+#include<stdlib.h>
+#include <windows.h> 
 using namespace std;
 const int ii=100;	//文件中职工工资数据的最大值 
 int n=0; 			//记录gx.text文件中职工工资数据的个数 
@@ -42,6 +44,7 @@ struct gzzg{
     float personal_income_tax;	//个人所得税
     float real_pay;				//实发工资
 }GZZG[ii];						//结构体数组全局变量 
+
 
 
 /***************************************************
@@ -60,7 +63,7 @@ void read()
 {
     int i;
     FILE *fp;
-    if((fp=fopen("stu.dat","r"))==NULL)
+    if((fp=fopen("gx.dat","r"))==NULL)
     {
         printf("Can not open file\n");
         exit(1);	
@@ -68,18 +71,14 @@ void read()
     while(!feof(fp))	//如果遇到文件结束，函数值feof为非零值，否则函数值为0。!0为真 
     {
         fscanf(fp,"%s  %s  %f  %f  %f  %f",
-                GZZG[i].number,GZZG[i].name,&GZZG[i].wage,&GZZG[i].pay_wages,&GZZG[i].post_allowance,&GZZG[i].merit_pay);
+                GZZG[i].number,GZZG[i].name,&GZZG[i].wage,
+				&GZZG[i].pay_wages,&GZZG[i].post_allowance,&GZZG[i].merit_pay);
         i=i+1;
         n=n+1;
     }
-    cout<<n<<endl;
     fclose(fp); 
-    for(i=0;i<n;i++)
-    {
-        printf("%s   %s   %.2f   %.2f   %.2f   %.2f \n",
-                GZZG[i].number,GZZG[i].name,GZZG[i].wage,GZZG[i].pay_wages,GZZG[i].post_allowance,GZZG[i].merit_pay);
-    }
 }
+
 
 
 /*****************************************************
@@ -98,7 +97,7 @@ void write()
 {
     int i;
     FILE *fp;
-    if((fp=fopen("gz.text","rb+"))==NULL)
+    if((fp=fopen("gz.dat","rb+"))==NULL)
     {
         printf("Can not open file\n");
         exit(1);	
@@ -109,9 +108,11 @@ void write()
                 GZZG[i].number,GZZG[i].name,GZZG[i].wage,GZZG[i].pay_wages,GZZG[i].post_allowance,
                 GZZG[i].merit_pay,GZZG[i].should_pay,GZZG[i].personal_income_tax,GZZG[i].real_pay);
     }
+    printf("\n保存成功");
     fclose(fp);
 
 } 
+
 
 
 /*****************************************************
@@ -127,46 +128,57 @@ Return:  无返回值;
 *****************************************************/
 void find()		//查询职工工资数据 
 {
-    int j;
+    int j=0;
     char gonghao[10];
-    printf("请输入要进行查询的工号："); 
+    printf("\t\t\t请输入要进行查询的工号："); 
     scanf("%s",gonghao);
-    printf("显示查询结果：\n") ;
+    printf("\t\t\t显示查询结果：\n\n") ;
+    
     for(int i=0;i<n;i++)
     {
+    	j=j+1;
         if(strcmp(GZZG[i].number,gonghao)==0)
-        {	
-            printf("工号：");
-            printf("%s\n",GZZG[i].number);
+        {	        	
+            printf("			***************************\n") ;
+            printf("			|工号：");
+            printf("%-19s|\n",GZZG[i].number);
+	    			
+            printf("			|姓名：");
+            printf("%-19s|\n",GZZG[i].name);
 			
-            printf("姓名：");
-            printf("%s\n",GZZG[i].name);
+            printf("			|岗位工资：");
+            printf("%-15.2f|\n",GZZG[i].wage);
+	    		
+            printf("			|薪级工资：");
+            printf("%-15.2f|\n",GZZG[i].pay_wages);
 			
-            printf("岗位工资：");
-            printf("%.2f\n",GZZG[i].wage);
+            printf("			|职务津贴：");
+            printf("%-15.2f|\n",GZZG[i].post_allowance);
+	    		
+            printf("			|绩效工作：");
+            printf("%-15.2f|\n",GZZG[i].merit_pay);
 			
-            printf("薪级工资：");
-            printf("%.2f\n",GZZG[i].pay_wages);
+            printf("			|应发工资：");
+            printf("%-15.2f|\n",GZZG[i].should_pay);
 			
-            printf("职务津贴：");
-            printf("%.2f\n",GZZG[i].post_allowance);
+            printf("			|个人所得税：");
+            printf("%-13.2f|\n",GZZG[i].personal_income_tax);		
 			
-            printf("绩效工作：");
-            printf("%.2f\n",GZZG[i].merit_pay);
-			
-            printf("应发工资：");
-            printf("%.2f\n",GZZG[i].should_pay);
-		
-            printf("个人所得税：");
-            printf("%.2f\n",GZZG[i].personal_income_tax);		
-			
-            printf("实发工资：");
-            printf("%.2f\n",GZZG[i].real_pay);
-			
+       	    printf("			|实发工资：");
+       	    printf("%-15.2f|\n",GZZG[i].real_pay);
+            printf("			***************************\n");
+            
             break;
         }
+        if(j==n)		//判断工号是否存在 
+        {
+            printf("\t\t\t输入工号不存在\n");
+	    }	
     }
+
+    
 }
+
 
 
 /*****************************************************
@@ -183,38 +195,41 @@ Return:  无返回值;
 void list()			//浏览所有职工工资数据 
 {
     printf("      			所有职工工资数据如下：\n");
+    
     for(int i=0;i<n;i++)
     {
+    	Sleep(1000);
         printf("			***************************\n") ;
         printf("			|工号：");
-        printf("%s\n",GZZG[i].number);
+        printf("%-19s|\n",GZZG[i].number);
 	    			
         printf("			|姓名：");
-        printf("%s\n",GZZG[i].name);
+        printf("%-19s|\n",GZZG[i].name);
 			
         printf("			|岗位工资：");
-        printf("%.2f\n",GZZG[i].wage);
+        printf("%-15.2f|\n",GZZG[i].wage);
 	    		
         printf("			|薪级工资：");
-        printf("%.2f\n",GZZG[i].pay_wages);
+        printf("%-15.2f|\n",GZZG[i].pay_wages);
 			
         printf("			|职务津贴：");
-        printf("%.2f\n",GZZG[i].post_allowance);
+        printf("%-15.2f|\n",GZZG[i].post_allowance);
 	    		
         printf("			|绩效工作：");
-        printf("%.2f\n",GZZG[i].merit_pay);
+        printf("%-15.2f|\n",GZZG[i].merit_pay);
 			
         printf("			|应发工资：");
-        printf("%.2f\n",GZZG[i].should_pay);
+        printf("%-15.2f|\n",GZZG[i].should_pay);
 			
         printf("			|个人所得税：");
-        printf("%.2f\n",GZZG[i].personal_income_tax);		
+        printf("%-13.2f|\n",GZZG[i].personal_income_tax);		
 			
         printf("			|实发工资：");
-        printf("%.2f\n",GZZG[i].real_pay);
-        printf("			***************************\n");
+        printf("%-15.2f|\n",GZZG[i].real_pay);
+        printf("			***************************\n\n");
 	}
 }
+
 
 
 /*****************************************************
@@ -232,7 +247,6 @@ void modify()		//修改职工工资数据
     printf("请输入要修改的工号:"); 
     char gonghao[10];
     int i;
-    float modify_wage,modify_pay_wages,modify_merit_pay;
     scanf("%s",gonghao); 
     for(i=0;i<n;i++)
         if(strcmp(GZZG[i].number,gonghao)==0)
@@ -253,6 +267,7 @@ void modify()		//修改职工工资数据
     scanf("%f\n",&GZZG[i].merit_pay);
 
 }
+
 
 
 /*****************************************************
@@ -389,7 +404,9 @@ void add()
     scanf("%f",&GZZG[n].post_allowance);
 	
     printf("\t\t\t请输入所添加职工的绩效工资:");
-    scanf("%f",&GZZG[n].merit_pay);			
+    scanf("%f",&GZZG[n].merit_pay);	
+	
+	printf("\n\t\t\t添加成功");		
 }
 
 
@@ -403,7 +420,7 @@ Called by: menu();
 
 Return:  无返回值; 
 *****************************************************/
-void func_real_pay()	
+void  func_real_pay()     	
 {
     int i;
     for(i=0;i<n;i++)
@@ -432,7 +449,7 @@ void grsds()
         {
             GZZG[i].personal_income_tax=(GZZG[i].should_pay-100000)*0.45
                                         +20000*1.3+15000*0.2+3000*0.15+1500*0.1+500*0.5;
-    }
+        }
 		
         else if(GZZG[i].should_pay>=80000)
         {
@@ -482,12 +499,21 @@ void grsds()
 
 
 /*****************************************************
-Function: grsds();
-Description: 计算gz.dat文件中所有职工的应发工资和个人
-             所得税;
-Calls:  无调用函数; 
+Function: menu();
+Description:显示系统菜单并且实现系统所有功能;
+ 
+Calls:  read()
+        write();
+        find();
+        modify();
+        list();
+        del();
+        add();
+        func_real_pay();
+        grsds();
+ 
 
-Called by: menu(); 
+Called by: main(); 
 
 Return:  无返回值; 
 *****************************************************/
@@ -496,6 +522,7 @@ void menu()
     int i,j;
     do
     {
+    	system("cls"); 
         printf("\t\t\t###  欢迎使用广西民族大学软件与信息安全学院职工工资管理系统  ###\n\n");
         printf("\t\t\t请选择<1 - 7>:\n");
         printf("\t\t\t===============================================================\n");
@@ -509,7 +536,11 @@ void menu()
         printf("\t\t\t===============================================================\n\n");
         printf("\t\t\t你的选择是：");
         scanf("%d",&i);	
-		
+		while(i>7)
+		{
+			printf("\t\t\t输入数字不在1-7之间，请重新输入:"); 
+			scanf("%d",&i);	
+		}
         switch(i)
         {
             case 1:
@@ -520,7 +551,7 @@ void menu()
                 find();
                 do
                 {
-                    printf("输入0返回上一层：");
+                    printf("\t\t\t输入0返回上一层：");
                     scanf("%d",&j);
                     if(j==0)
                     {
@@ -530,13 +561,15 @@ void menu()
                 while(j!=0);
                 break;
             }
+            
             case 2:
             {	
                 printf("\t\t\t欢迎使用修改功能，请接下来按提示操作\n");
                 modify();
+                printf("修改完成！！\n");
                 do
                 {
-                    printf("输入0返回上一层：");
+                    printf("\t\t\t输入0返回上一层：");
                     scanf("%d",&j);
                     if(j==0)
                     {
@@ -556,7 +589,7 @@ void menu()
                 func_real_pay();
                 do
                 {
-                    printf("输入0返回上一层：");
+                    printf("\t\t\t输入0返回上一层：");
                     scanf("%d",&j);
                     if(j==0)
                     {
@@ -573,7 +606,7 @@ void menu()
                 del(); 
                 do
                 {
-                    printf("输入0返回上一层：");
+                    printf("\t\t\t输入0返回上一层：");
                     scanf("%d",&j);
                     if(j==0)
                     {
@@ -590,7 +623,7 @@ void menu()
                 write();
                 do
                 {
-                    printf("输入0返回上一层：");
+                    printf("\t\t\t输入0返回上一层：");
                     scanf("%d",&j);
                     if(j==0)
                     {
@@ -607,7 +640,7 @@ void menu()
                 list();
                 do
                 {
-                    printf("输入0返回上一层：");
+                    printf("\t\t\t输入0返回上一层：");
                     scanf("%d",&j);
                     if(j==0)
                     {
@@ -629,12 +662,13 @@ void menu()
 }
 
 int main()
-{
-    int i,j; 
+{ 
     read();
     grsds();
-    func_real_pay();	
+    func_real_pay();
+	system("color bc");	
     menu();
+    
     printf("\t\t\t欢迎使用本系统，再见！！！！！！"); 
 	
     return 0;
